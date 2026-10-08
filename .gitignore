@@ -1,0 +1,42 @@
+# Environment variables
+.env
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local backups and generated artifacts
+.backups/
+alembic_upgrade_preview.sql
+
+# Old local dependency backup
+requirements.txt.before-auth
+
+# Local backup source files
+*.bak
+*.google-backup
+*.before-*
+*.stable-backup

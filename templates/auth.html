@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#151824">
+    <title>SavorAI - Sign in</title>
+    <link rel="stylesheet" href="/static/auth.css?v=1">
+</head>
+
+<body class="auth-page">
+    <main class="auth-shell">
+        <div class="auth-brand">
+            <div class="auth-brand-mark">AI</div>
+            <span>SavorAI</span>
+        </div>
+
+        <section class="auth-card" aria-labelledby="authTitle">
+            <div class="auth-card-header">
+                <span class="auth-kicker">SAVORAI</span>
+                <h1 id="authTitle">Good to See You</h1>
+                <p id="authSubtitle">
+                    Sign in to discover your next favorite meal.
+                </p>
+            </div>
+
+            <div id="authNotice" class="auth-notice" hidden></div>
+
+            <form id="signinForm" class="auth-form">
+                <div class="form-field">
+                    <label for="signinIdentifier">Username or Email</label>
+                    <input
+                        id="signinIdentifier"
+                        type="text"
+                        placeholder="Enter your username or email"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="signinPassword">Password</label>
+                    <input
+                        id="signinPassword"
+                        type="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="auth-primary-btn">
+                    Login
+                </button>
+            </form>
+
+            <form id="signupForm" class="auth-form" hidden>
+                <div class="form-grid">
+                    <div class="form-field form-field-full">
+                        <label for="signupName">Name</label>
+                        <input
+                            id="signupName"
+                            type="text"
+                            placeholder="Your name"
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signupUsername">Username</label>
+                        <input
+                            id="signupUsername"
+                            type="text"
+                            placeholder="Choose a username"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signupEmail">Email</label>
+                        <input
+                            id="signupEmail"
+                            type="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signupPassword">Password</label>
+                        <input
+                            id="signupPassword"
+                            type="password"
+                            placeholder="Minimum 8 characters"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input
+                            id="signupConfirmPassword"
+                            type="password"
+                            placeholder="Repeat your password"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-primary-btn">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span></span>
+                <strong>or</strong>
+                <span></span>
+            </div>
+
+            <button
+                type="button"
+                class="google-btn"
+                id="googleBtn"
+            >
+                <span class="google-icon">G</span>
+                <span>Continue with Google</span>
+            </button>
+
+            <div class="auth-switch">
+                <span id="authSwitchText">New here?</span>
+                <button type="button" id="authSwitchBtn">Create an account</button>
+            </div>
+
+            <p class="auth-footer">
+                Secure account access with HttpOnly session cookies.
+            </p>
+        </section>
+    </main>
+
+    <script src="/static/auth.js?v=1"></script>
+</body>
+</html>
+

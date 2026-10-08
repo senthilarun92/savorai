@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SavorAI</title>
+    <link rel="stylesheet" href="/static/style.css?v=3">
+</head>
+
+<body class="dark-theme">
+
+
+<header class="app-header">
+    <div class="header-content simple-header">
+
+        <div class="branding">
+            <h1>SavorAI</h1>
+            <p>Smart recipes. Better cooking.</p>
+        </div>
+
+        <div class="app-user-actions compact-user-actions">
+
+            <div class="profile-chip">
+                <span class="user-avatar" aria-hidden="true">S</span>
+                <span id="userGreeting" class="user-greeting">smartlibrary</span>
+            </div>
+
+            <button
+                type="button"
+                class="header-icon-btn"
+                onclick="logoutUser()"
+                aria-label="Logout"
+                title="Logout"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M10 5H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H10"></path>
+                    <path d="M15 8l4 4-4 4"></path>
+                    <path d="M19 12H9"></path>
+                </svg>
+            </button>
+
+            <button
+                type="button"
+                class="theme-toggle-btn"
+                id="themeToggleBtn"
+                onclick="toggleTheme()"
+                aria-label="Switch to dark theme"
+                title="Switch to dark theme"
+            >
+                <span id="themeIcon" class="theme-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="M4.93 4.93l1.41 1.41"></path>
+                        <path d="M17.66 17.66l1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="M4.93 19.07l1.41-1.41"></path>
+                        <path d="M17.66 6.34l1.41-1.41"></path>
+                    </svg>
+                </span>
+                <span id="themeLabel">Light</span>
+            </button>
+
+        </div>
+    </div>
+</header>
+
+
+<main class="container">
+
+    <section class="top-panel">
+
+        <div class="grid">
+
+            <div class="span-full">
+                <div class="label-row">
+                    <label for="ingredients">Ingredients</label>
+
+                    <div class="quick-helpers">
+                        <button type="button" class="helper-btn"
+                                onclick="insertSample('pasta')">
+                            Pasta Sample
+                        </button>
+
+                        <button type="button" class="helper-btn"
+                                onclick="insertSample('curry')">
+                            Curry Sample
+                        </button>
+
+                        <button type="button" class="helper-btn"
+                                onclick="clearIngredients()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <textarea
+                    id="ingredients"
+                    rows="5"
+                    placeholder="Example: tomato, onion, garlic, fish"
+                ></textarea>
+            </div>
+
+            <div>
+                <label for="cuisine">Cuisine</label>
+                <select id="cuisine">
+                    <option>Any</option>
+                    <option>Indian</option>
+                    <option>Chinese</option>
+                    <option>Italian</option>
+                    <option>Mexican</option>
+                    <option>Mediterranean</option>
+                    <option>American</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="diet">Diet</label>
+                <select id="diet">
+                    <option>Any</option>
+                    <option>Vegetarian</option>
+                    <option>Vegan</option>
+                    <option>High Protein</option>
+                    <option>Keto</option>
+                    <option>Low Carb</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="language">Language</label>
+                <select id="language" onchange="onLanguageChange()">
+                    <option>English</option>
+                    <option>Tamil</option>
+                    <option>Hindi</option>
+                    <option>French</option>
+                    <option>Spanish</option>
+                </select>
+            </div>
+
+        </div>
+
+                
+        
+        <div class="recipe-action-bar">
+
+            <button
+                type="button"
+                class="recipe-main-btn"
+                onclick="generateRecipes()"
+            >
+                Generate Recipes
+            </button>
+
+            <button
+                type="button"
+                class="recipe-tool-btn"
+                onclick="toggleVoiceInput()"
+                id="btnVoice"
+                aria-label="Voice input"
+                title="Voice input"
+            >
+                <span class="action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 14a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v4a3 3 0 0 0 3 3Z"></path>
+                        <path d="M19 11a7 7 0 0 1-14 0"></path>
+                        <path d="M12 18v3"></path>
+                        <path d="M8 21h8"></path>
+                    </svg>
+                </span>
+                <span>Voice Input</span>
+            </button>
+
+            <button
+                type="button"
+                class="recipe-tool-btn"
+                onclick="openCameraModal()"
+                aria-label="Open food camera"
+                title="Food camera"
+            >
+                <span class="action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M4 7h3l1.4-2h7.2L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"></path>
+                        <circle cx="12" cy="13" r="3.5"></circle>
+                    </svg>
+                </span>
+                <span>Camera</span>
+            </button>
+
+        </div>
+
+        <div id="voiceBanner" class="voice-banner" style="display:none;">
+
+    <div class="voice-status">
+        <span
+            id="voiceIcon"
+            class="pulsing-mic"
+            aria-hidden="true"
+        >
+            <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 14a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v4a3 3 0 0 0 3 3Z"></path>
+                <path d="M19 11a7 7 0 0 1-14 0"></path>
+                <path d="M12 18v3"></path>
+            </svg>
+        </span>
+
+        <span id="voiceText">Listening...</span>
+    </div>
+
+    <button
+        type="button"
+        class="stop-voice-btn"
+        onclick="stopVoiceInput()"
+    >
+        Stop
+    </button>
+</div>
+
+<div id="errorBox" class="error-box" style="display:none;">
+            <div class="error-text">
+                <strong>Error</strong>
+                <span id="errorMessage"></span>
+            </div>
+
+            <button type="button"
+                    class="close-error"
+                    onclick="hideError()">X</button>
+        </div>
+
+    </section>
+
+    <section id="loader" class="loader-section" style="display:none;">
+        <div class="loader-spinner"></div>
+        <h2 id="loaderTitle">Cooking up recipes...</h2>
+        <p id="loaderSubtitle">
+            Our AI chef is crafting delicious culinary suggestions.
+        </p>
+    </section>
+
+    <section id="suggestionsSection"
+             class="suggestions-section"
+             style="display:none;">
+
+        <div class="section-title-bar">
+            <div>
+                <h2>Recipe Suggestions</h2>
+            </div>
+            <span class="section-badge">AI Generated</span>
+        </div>
+
+        <div id="recipesContainer" class="recipes-grid"></div>
+
+    </section>
+
+    <section id="recipeContainer"
+             class="recipe-container"
+             style="display:none;">
+    </section>
+
+    <section id="savedRecipesSection"
+             class="suggestions-section"
+             style="display:none;">
+
+        <div class="section-title-bar">
+            <div>
+                <h2>Saved Recipes</h2>
+            </div>
+            <span class="section-badge">Your Recipes</span>
+        </div>
+
+        <div id="savedRecipesContainer" class="recipes-grid"></div>
+
+    </section>
+
+</main>
+
+<!-- CAMERA MODAL -->
+<div id="cameraModal"
+     class="modal-backdrop"
+     style="display:none;">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div class="modal-title-wrap">
+                <div class="modal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h3l1.4-2h7.2L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></div>
+
+                <div>
+                    <h3>Food Camera</h3>
+                    <p>Capture your ingredients and let AI identify them.</p>
+                </div>
+            </div>
+
+            <button type="button"
+                    class="modal-close-btn"
+                    onclick="closeCameraModal()">X</button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div id="cameraError"
+                 class="camera-error"
+                 style="display:none;">
+                <span id="cameraErrorMessage"></span>
+            </div>
+
+            <div class="viewfinder-container">
+
+                <video id="cameraVideo"
+                       autoplay
+                       playsinline
+                       muted>
+                </video>
+
+                <img id="capturedImagePreview"
+                     alt="Captured food preview"
+                     style="display:none;">
+
+                <div id="viewfinderFrame"
+                     class="viewfinder-frame">
+
+                    <div class="corner top-left"></div>
+                    <div class="corner top-right"></div>
+                    <div class="corner bottom-left"></div>
+                    <div class="corner bottom-right"></div>
+
+                    <div class="scan-line"></div>
+
+                </div>
+
+                <div id="cameraLoader"
+                     class="camera-loader"
+                     style="display:none;">
+                    <div class="loader-spinner"></div>
+                    <span>Analyzing image...</span>
+                </div>
+
+            </div>
+
+            <canvas id="captureCanvas"
+                    style="display:none;"></canvas>
+
+            <div class="camera-controls">
+
+                <button type="button"
+                        id="btnCapturePhoto"
+                        class="primary-btn"
+                        onclick="capturePhoto()">
+                    Capture Photo
+                </button>
+
+                <button type="button"
+                        id="btnRetakePhoto"
+                        class="secondary-btn"
+                        onclick="retakePhoto()"
+                        style="display:none;">
+                    Retake
+                </button>
+
+                <button type="button"
+                        id="btnAnalyzeImage"
+                        class="primary-btn"
+                        onclick="analyzeCapturedImage()"
+                        style="display:none;">
+                    Analyze Food
+                </button>
+
+                <label class="upload-fallback-label">
+                    Upload Image
+                    <input type="file"
+                           accept="image/*"
+                           onchange="handleFileUpload(event)"
+                           hidden>
+                </label>
+
+            </div>
+
+            <div id="detectedSection"
+                 class="detected-section"
+                 style="display:none;">
+
+                <div class="detected-header">
+                    <h4>Detected Ingredients</h4>
+                    <span id="detectedCount" class="badge">0</span>
+                </div>
+
+                <p id="detectedMessage" class="detected-msg"></p>
+
+                <div id="detectedChips"
+                     class="detected-chips">
+                </div>
+
+                <div class="detected-actions">
+
+                    <button type="button"
+                            class="primary-btn"
+                            onclick="useDetectedIngredients('add')">
+                        Add to Ingredients
+                    </button>
+
+                    <button type="button"
+                            class="secondary-btn"
+                            onclick="useDetectedIngredients('replace')">
+                        Replace Ingredients
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button type="button"
+                    class="secondary-btn"
+                    onclick="switchCamera()">
+                Switch Camera
+            </button>
+
+            <button type="button"
+                    class="secondary-btn"
+                    onclick="closeCameraModal()">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="/static/app.js?v=2"></script>
+
+</body>
+</html>
+
+
+
+
+
+
