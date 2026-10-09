@@ -40,3 +40,5 @@ requirements.txt.before-auth
 *.google-backup
 *.before-*
 *.stable-backup
+
+.env.backup
